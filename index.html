@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Para Ti 💌</title>
+  <meta name="theme-color" content="#ff4d6d" />
+  <style>
+    :root{
+      --bg1:#120017;
+      --bg2:#2b0036;
+      --card:#ffffff0f;
+      --text:#fff;
+      --muted:#ffffffb3;
+      --accent:#ff4d6d;
+      --accent2:#ff9bb3;
+      --shadow: 0 20px 60px rgba(0,0,0,.55);
+      --radius: 28px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--text);
+      min-height:100vh;
+      background:
+        radial-gradient(1200px 700px at 20% 10%, #ff4d6d22, transparent 60%),
+        radial-gradient(1000px 700px at 80% 0%, #b5179e22, transparent 55%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+    }
+    .wrap{
+      max-width:980px;
+      margin:0 auto;
+      padding:32px 18px 70px;
+      position:relative;
+    }
+    header{
+      text-align:center;
+      margin:10px 0 26px;
+    }
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:10px 14px;
+      border:1px solid #ffffff22;
+      background:#ffffff10;
+      border-radius:999px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      font-weight:700;
+      letter-spacing:.3px;
+    }
+    .badge .dot{
+      width:10px;height:10px;border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, #fff, var(--accent));
+      box-shadow: 0 0 18px var(--accent);
+    }
+    h1{
+      margin:14px 0 6px;
+      font-size: clamp(30px, 3.6vw, 44px);
+      line-height:1.12;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(14px, 1.7vw, 16px);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:18px;
+      align-items:start;
+    }
+    @media (max-width: 860px){
+      .grid{grid-template-columns: 1fr;}
+    }
+
+    .card{
+      background: linear-gradient(180deg, #ffffff12, #ffffff08);
+      border:1px solid #ffffff1f;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      overflow:hidden;
+    }
+    .card-inner{padding:22px 22px 18px;}
+    .paper{
+      background:
+        radial-gradient(600px 260px at 20% 0%, #ff4d6d22, transparent 60%),
+        linear-gradient(180deg, #ffffff12, #ffffff06);
+      border:1px solid #ffffff22;
+    }
+
+    .letter-top{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-bottom:14px;
+    }
+    .to{
+      font-weight:800;
+      font-size:16px;
+    }
+    .date{
+      color:var(--muted);
+      font-size:13px;
+    }
+    .divider{
+      height:1px;background:#ffffff1f;margin:14px 0 16px;
+    }
+    .letter p{
+      margin:0 0 12px;
+      color:#ffffffe6;
+      line-height:1.72;
+      font-size:15.5px;
+    }
+    .letter p strong{color:#fff}
+    .signature{
+      margin-top:18px;
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .sig-name{
+      font-weight:900;
+      font-size:16px;
+      color: #fff;
+    }
+    .sig-note{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .side{
+      position:relative;
+    }
+    .side .card-inner{padding:18px;}
+    .qrbox{
+      display:grid;
+      place-items:center;
+      padding:14px;
+      border-radius:22px;
+      border:1px dashed #ffffff30;
+      background:#00000025;
+      margin-top:10px;
+    }
+    .qr-caption{
+      margin-top:12px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.4;
+      text-align:center;
+    }
+    .btns{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:14px;
+      justify-content:center;
+    }
+    button{
+      cursor:pointer;
+      border:1px solid #ffffff2a;
+      background: linear-gradient(180deg, #ffffff18, #ffffff0b);
+      color:#fff;
+      padding:10px 12px;
+      border-radius:14px;
+      font-weight:800;
+      letter-spacing:.2px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+      transition: transform .12s ease, border-color .12s ease;
+    }
+    button:hover{transform: translateY(-1px); border-color:#ffffff40;}
+    button:active{transform: translateY(0px);}
+
+    /* Corazones flotando */
+    .heart{
+      position:absolute;
+      width:14px;height:14px;
+      transform: rotate(45deg);
+      background: var(--accent);
+      opacity:.75;
+      animation: floatUp linear infinite;
+      filter: drop-shadow(0 0 10px #ff4d6d55);
+    }
+    .heart:before, .heart:after{
+      content:"";
+      position:absolute;
+      width:14px;height:14px;
+      border-radius:50%;
+      background: var(--accent);
+      top:-7px; left:0;
+    }
+    .heart:after{
+      left:-7px; top:0;
+    }
+    @keyframes floatUp{
+      from {transform: translateY(30px) rotate(45deg); opacity:.0;}
+      15% {opacity:.8;}
+      to {transform: translateY(-120vh) rotate(45deg); opacity:0;}
+    }
+    .footer{
+      text-align:center;
+      margin-top:18px;
+      color:#ffffff99;
+      font-size:12.5px;
+    }
+    a{color:var(--accent2); text-decoration:none}
+    a:hover{text-decoration:underline}
+  </style>
+</head>
+
+<body>
+  <div class="wrap" id="wrap">
+    <header>
+      <div class="badge"><span class="dot"></span> Carta para mi persona favorita</div>
+      <h1>Para <span id="nombrePareja">[Nombre]</span> 💌</h1>
+      <p class="sub">Hecha con cariño. Léela cuando quieras… y guárdala cerca del corazón.</p>
+    </header>
+
+    <section class="grid">
+      <!-- CARTA -->
+      <article class="card paper">
+        <div class="card-inner">
+          <div class="letter-top">
+            <div class="to">Mi amor, <span id="apodo">[Apodo]</span>:</div>
+            <div class="date" id="fecha"></div>
+          </div>
+          <div class="divider"></div>
+
+          <div class="letter" id="carta">
+            <p>
+              Hoy quería dejarte algo simple, pero verdadero:
+              <strong>gracias por existir en mi vida</strong>.
+            </p>
+            <p>
+              Me encanta cómo tu presencia cambia el día, cómo tus detalles hacen que todo se sienta más fácil,
+              y cómo incluso en lo cotidiano contigo hay algo especial.
+            </p>
+            <p>
+              Si alguna vez dudas, vuelve a esta carta:
+              <strong>te elijo</strong> en lo bueno, en lo difícil, en lo que estamos construyendo, y en lo que falta por soñar.
+            </p>
+            <p>
+              Prometo cuidarte, escucharte, reír contigo, y estar cuando lo necesites.
+              Y si el mundo se pone pesado, acá estoy: para ser tu calma y tu equipo.
+            </p>
+            <p>
+              Te amo con todo lo que soy.
+            </p>
+
+            <div class="signature">
+              <div class="sig-name">— <span id="tuNombre">[Tu nombre]</span></div>
+              <div class="sig-note">P.D.: Cada vez que escanees el QR, me vas a encontrar aquí 💞</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- QR / CONTROLES -->
+      <aside class="side">
+        <div class="card">
+          <div class="card-inner">
+            <h2 style="margin:0 0 6px; font-size:18px;">Tu QR 💗</h2>
+            <p style="margin:0; color:var(--muted); font-size:13px; line-height:1.45;">
+              Este QR apunta a <strong>la URL donde esté publicada</strong> esta página.
+            </p>
+
+            <div class="qrbox">
+              <div id="qrcode"></div>
+            </div>
+
+            <div class="qr-caption" id="qrText"></div>
+
+            <div class="btns">
+              <button id="copiarLink">Copiar link</button>
+              <button id="descargarQR">Descargar QR</button>
+              <button id="editar">Editar nombres</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          Tip: súbela a internet (GitHub Pages / Netlify) y listo. <br/>
+          Si aún la abres como archivo local, el QR no servirá para otras personas.
+        </div>
+      </aside>
+    </section>
+  </div>
+
+  <!-- Librería QR -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+  <script>
+    // Fecha bonita
+    const meses = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+    const hoy = new Date();
+    document.getElementById("fecha").textContent =
+      `${hoy.getDate()} de ${meses[hoy.getMonth()]} de ${hoy.getFullYear()}`;
+
+    // Corazones flotando
+    const wrap = document.getElementById("wrap");
+    function spawnHeart(){
+      const h = document.createElement("div");
+      h.className = "heart";
+      const size = 10 + Math.random()*14;
+      h.style.width = size+"px";
+      h.style.height = size+"px";
+      h.style.left = (Math.random()*100)+"vw";
+      h.style.animationDuration = (6 + Math.random()*6) + "s";
+      h.style.animationDelay = (Math.random()*1.2) + "s";
+      h.style.opacity = (0.35 + Math.random()*0.55);
+      wrap.appendChild(h);
+      setTimeout(()=>h.remove(), 14000);
+    }
+    for(let i=0;i<14;i++) spawnHeart();
+    setInterval(spawnHeart, 900);
+
+    // Generar QR de la URL actual
+    function renderQR(){
+      const url = window.location.href;
+      const qrContainer = document.getElementById("qrcode");
+      qrContainer.innerHTML = "";
+      new QRCode(qrContainer, {
+        text: url,
+        width: 220,
+        height: 220,
+        correctLevel: QRCode.CorrectLevel.H
+      });
+      document.getElementById("qrText").textContent = url;
+    }
+    renderQR();
+
+    // Copiar link
+    document.getElementById("copiarLink").addEventListener("click", async () => {
+      try{
+        await navigator.clipboard.writeText(window.location.href);
+        alert("Link copiado ✅");
+      }catch(e){
+        prompt("Copia el link:", window.location.href);
+      }
+    });
+
+    // Descargar QR (toma el canvas o img generado por qrcodejs)
+    document.getElementById("descargarQR").addEventListener("click", () => {
+      const qr = document.querySelector("#qrcode img") || document.querySelector("#qrcode canvas");
+      if(!qr){ alert("No encontré el QR todavía."); return; }
+
+      let dataUrl;
+      if(qr.tagName.toLowerCase() === "img"){
+        dataUrl = qr.src;
+      } else {
+        dataUrl = qr.toDataURL("image/png");
+      }
+
+      const a = document.createElement("a");
+      a.href = dataUrl;
+      a.download = "qr-carta-amor.png";
+      a.click();
+    });
+
+    // Editar nombres rápido
+    document.getElementById("editar").addEventListener("click", () => {
+      const nombrePareja = prompt("Nombre de tu pareja:", document.getElementById("nombrePareja").textContent) || "";
+      const apodo = prompt("Apodo (ej: mi vida, amorcito):", document.getElementById("apodo").textContent) || "";
+      const tuNombre = prompt("Tu nombre:", document.getElementById("tuNombre").textContent) || "";
+
+      if(nombrePareja.trim()) document.getElementById("nombrePareja").textContent = nombrePareja.trim();
+      if(apodo.trim()) document.getElementById("apodo").textContent = apodo.trim();
+      if(tuNombre.trim()) document.getElementById("tuNombre").textContent = tuNombre.trim();
+    });
+  </script>
+</body>
+</html>
